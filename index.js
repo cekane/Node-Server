@@ -13,34 +13,24 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(cors());
 
-// Initialize app with appropriate IP
-app.post('/formcontent', function (req, res) {
-  const labels = req.body.labels;
-  const fields = req.body.fields;
-  console.log("LABELS", labels)
-  console.log("EMAIL", req.body.email )
-  var str = ' '
-  Object.keys(req.body.fields).map((k, i)=>{ str = str.concat('<h3>').concat(labels[i]).concat(':').concat(' ').concat(fields[k]).concat('</h3>')})
-  console.log(str)
-  var transport = nodemailer.createTransport(mandrill({
-    auth: {
-      apiKey: 'R4a417PLlD_4qZiBoAqjjw'
-    }
-  }));
+// // Initialize app with appropriate IP
+// app.post('/formcontent', function (req, res) {
+//   const labels = req.body.labels;
+//   const fields = req.body.fields;
+//   console.log("LABELS", labels)
+//   console.log("EMAIL", req.body.email )
+//   var str = ' '
+//   Object.keys(req.body.fields).map((k, i)=>{ str = str.concat('<h3>').concat(labels[i]).concat(':').concat(' ').concat(fields[k]).concat('</h3>')})
+//   console.log(str)
+// });
 
-  transport.sendMail({
-    from: 'Windrush Team <form@windrush.io>',
-    to: req.body.email,
-    subject: 'Hello',
-    html: str
-  }, function(err, info) {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log(info);
-    }
-  });
+app.post('/', function(req, res){
+  console.log("IN HERE");
 });
+
+app.get('/:arg', function(req, res){
+  console.log(req.params.arg)
+})
 
 getIP(function (err, ip) {
     if (err) {
