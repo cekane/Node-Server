@@ -7,19 +7,11 @@ var bodyParser = require('body-parser');
 var nodemailer = require('nodemailer');
 var mandrill = require('nodemailer-mandrill-transport');
 
-var emailTemplates = require('email-templates');
-
 
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(cors());
-
-
-function createEmail(err, body) {
-  if (err) { return res.send(err.status_code ? err.status_code : 500, err); }
-  emailTemplates(config.email.templateDir, renderForgotTemplate);
-}
 
 // Initialize app with appropriate IP
 app.post('/formcontent', function (req, res) {
